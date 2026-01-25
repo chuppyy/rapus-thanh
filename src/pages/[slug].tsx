@@ -81,8 +81,8 @@ export default function Page(data: any) {
         <div className="container-flu details">
           <div id="div_adsconex_banner_responsive_1"></div>
           <h1>{article.name}</h1>
-        <div id="adsconex-video-container"></div>
-        
+          <div id="adsconex-video-container"></div>
+
           <p className="mb-4 text-lg">Posted: {formatDate(article.dateTimeStart)}</p>
 
           <Suspense fallback={<p>Loading ...</p>}>
@@ -95,7 +95,7 @@ export default function Page(data: any) {
 
         {/* Nếu dùng Taboola: inject Taboola scripts */}
         {!useMgid && (
-          <>            
+          <>
             <script
               dangerouslySetInnerHTML={{
                 __html: `
@@ -163,29 +163,38 @@ export default function Page(data: any) {
             </>
           )}
         </div>
-        <Script 
-        src="https://cdn.adsconex.com/js/adsconex-player.js" 
-        strategy="afterInteractive" 
-      />
-      <Script 
-        src="https://cdn.adsconex.com/js/adsconex-banner-bw-feji-rl.js" 
-        strategy="afterInteractive" 
-      />
-      {/* <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script> */}
-      
-      <Script 
-        src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"
-        strategy="afterInteractive"
-      />
+        <Script
+          src="https://cdn.adsconex.com/js/adsconex-player.js"
+          strategy="afterInteractive"
+        />
+        <Script
+          src="https://cdn.adsconex.com/js/adsconex-banner-feji-newest-popup.js"
+          strategy="afterInteractive"
+        />
+        {/* <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script> */}
 
-      {/* QUAN TRỌNG: GPT thường đi kèm đoạn mã khởi tạo (googletag.cmd.push...).
+        <Script
+          src="https://cdn.adsconex.com/js/adsconex-banner-feji-newest.js"
+          strategy="afterInteractive"
+        />
+        <Script id="adsconex-script" strategy="afterInteractive">
+          {`
+            window.adsconex = window.adsconex || { cmd: [] };
+            adsconex.cmd.push(function () {
+              adsconex.run("feji_default");
+            });
+          `}
+        </Script>
+
+
+        {/* QUAN TRỌNG: GPT thường đi kèm đoạn mã khởi tạo (googletag.cmd.push...).
          Bạn nên thêm đoạn đó ngay bên dưới dưới dạng inline script như sau:
       */}
-      <Script id="google-ad-manager-init" strategy="afterInteractive">
-        {`
+        <Script id="google-ad-manager-init" strategy="afterInteractive">
+          {`
           window.googletag = window.googletag || {cmd: []};
         `}
-      </Script>
+        </Script>
       </main>
     </>
   );
